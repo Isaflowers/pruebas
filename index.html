@@ -7,133 +7,214 @@
 
 <title>Certificado FUN - Prueba</title>
 
-<!-- Biblioteca para convertir el certificado en PNG -->
+<!-- Bibliotecas -->
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html-to-image/1.11.11/html-to-image.min.js"></script>
 
 <style>
 
-    * {
-        box-sizing: border-box;
-    }
+* {
+    box-sizing: border-box;
+}
 
-    body {
-        margin: 0;
-        min-height: 100vh;
-        background: #26152f;
-        color: white;
-        font-family: Arial, sans-serif;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        padding: 20px;
-    }
+body {
+    margin: 0;
+    min-height: 100vh;
+    background: #26152f;
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+}
+
+.modal {
+    background: #fff8fc;
+    color: #26152f;
+    width: min(95%, 650px);
+    padding: 30px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+}
+
+h2 {
+    color: #75405e;
+}
+
+p {
+    line-height: 1.5;
+}
+
+input {
+    width: 100%;
+    padding: 13px;
+    border: 1px solid #d9a4c4;
+    border-radius: 8px;
+    margin: 18px 0;
+    font-size: 16px;
+    outline: none;
+}
+
+input:focus {
+    border-color: #bd6f9e;
+    box-shadow: 0 0 0 3px rgba(217,138,184,0.15);
+}
+
+button {
+    background: #d98ab8;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 13px 22px;
+    cursor: pointer;
+    font-weight: bold;
+    margin: 5px;
+    transition: 0.2s;
+}
+
+button:hover {
+    background: #bd6f9e;
+    transform: translateY(-2px);
+}
+
+.volver {
+    background: #76546b;
+}
+
+.volver:hover {
+    background: #5d4054;
+}
+
+#resultado {
+    display: none;
+}
+
+/* CONTENEDOR DEL CERTIFICADO */
+
+#certificadoFinal {
+    position: relative;
+    width: 100%;
+    max-width: 750px;
+    margin: 20px auto;
+    overflow: hidden;
+    background: white;
+}
+
+#fondoCertificado {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+/* NOMBRE PERSONALIZADO */
+
+#nombreCertificado {
+    position: absolute;
+    top: 53.5%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 85%;
+    text-align: center;
+    font-family: Georgia, serif;
+    font-size: 35px;
+    color: #75405e;
+    font-weight: normal;
+    overflow-wrap: anywhere;
+}
+
+/* =====================================
+   SWEETALERT - CHRISTMAS COQUETTE
+===================================== */
+
+.swal2-popup.modal-certificado-coquette {
+    width: min(92vw, 680px) !important;
+    padding: 28px 25px !important;
+    border-radius: 25px !important;
+    border: 2px solid #f2c8da !important;
+    background:
+        radial-gradient(circle at top left, #fff0f6, transparent 45%),
+        linear-gradient(145deg, #fffaf7, #fff0f5) !important;
+    box-shadow: 0 15px 45px rgba(105, 45, 75, 0.25) !important;
+    font-family: Georgia, serif !important;
+    overflow: hidden !important;
+    position: relative;
+}
+
+/* Decoración superior */
+
+.swal2-popup.modal-certificado-coquette::before {
+    content: "🎀  ✧  ♡  ✧  🎀";
+    display: block;
+    color: #c77b9e;
+    font-size: 23px;
+    letter-spacing: 5px;
+    margin-bottom: 12px;
+}
+
+/* Título */
+
+.modal-certificado-coquette .swal2-title {
+    color: #a65379 !important;
+    font-family: Georgia, serif !important;
+    font-size: 27px !important;
+    font-weight: normal !important;
+    padding: 0 10px !important;
+}
+
+/* Contenido */
+
+.modal-certificado-coquette .swal2-html-container {
+    color: #80566d !important;
+    font-size: 15px !important;
+    line-height: 1.6 !important;
+    margin: 15px 0 !important;
+}
+
+/* Botones */
+
+.modal-certificado-coquette .swal2-confirm {
+    border: none !important;
+    border-radius: 30px !important;
+    padding: 12px 25px !important;
+    font-family: Georgia, serif !important;
+    font-size: 14px !important;
+    background: linear-gradient(135deg, #e7a2c0, #c8759e) !important;
+    color: white !important;
+    box-shadow: 0 5px 12px rgba(190, 105, 145, 0.25);
+}
+
+.modal-certificado-coquette .swal2-confirm:hover {
+    transform: translateY(-2px);
+}
+
+/* Adaptación a celulares */
+
+@media (max-width: 500px) {
 
     .modal {
-        background: #fff8fc;
-        color: #26152f;
-        width: min(95%, 650px);
-        padding: 30px;
-        border-radius: 18px;
-        text-align: center;
-        box-shadow: 0 10px 35px rgba(0,0,0,0.25);
+        padding: 20px 15px;
     }
-
-    h2 {
-        color: #75405e;
-    }
-
-    p {
-        line-height: 1.5;
-    }
-
-    input {
-        width: 100%;
-        padding: 13px;
-        border: 1px solid #d9a4c4;
-        border-radius: 8px;
-        margin: 18px 0;
-        font-size: 16px;
-        outline: none;
-    }
-
-    input:focus {
-        border-color: #bd6f9e;
-        box-shadow: 0 0 0 3px rgba(217,138,184,0.15);
-    }
-
-    button {
-        background: #d98ab8;
-        color: white;
-        border: none;
-        border-radius: 8px;
-        padding: 13px 22px;
-        cursor: pointer;
-        font-weight: bold;
-        margin: 5px;
-        transition: 0.2s;
-    }
-
-    button:hover {
-        background: #bd6f9e;
-        transform: translateY(-2px);
-    }
-
-    .volver {
-        background: #76546b;
-    }
-
-    .volver:hover {
-        background: #5d4054;
-    }
-
-    #resultado {
-        display: none;
-    }
-
-    /* CONTENEDOR DEL CERTIFICADO */
-
-    #certificadoFinal {
-        position: relative;
-        width: 100%;
-        max-width: 750px;
-        margin: 20px auto;
-        overflow: hidden;
-        background: white;
-    }
-
-    #fondoCertificado {
-        display: block;
-        width: 100%;
-        height: auto;
-    }
-
-    /* NOMBRE PERSONALIZADO */
 
     #nombreCertificado {
-        position: absolute;
-        top: 53.5%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        width: 85%;
-        text-align: center;
-        font-family: Georgia, serif;
-        font-size: 35px;
-        color: #75405e;
-        font-weight: normal;
-        overflow-wrap: anywhere;
+        font-size: 22px;
     }
 
-    @media (max-width: 500px) {
-
-        .modal {
-            padding: 20px 15px;
-        }
-
-        #nombreCertificado {
-            font-size: 22px;
-        }
-
+    .swal2-popup.modal-certificado-coquette {
+        padding: 22px 14px !important;
+        border-radius: 20px !important;
     }
+
+    .modal-certificado-coquette .swal2-title {
+        font-size: 22px !important;
+    }
+
+    .modal-certificado-coquette::before {
+        font-size: 18px;
+    }
+
+}
 
 </style>
 </head>
@@ -169,7 +250,6 @@
 
     </section>
 
-
     <!-- ESTADO 2: CERTIFICADO -->
 
     <section id="resultado">
@@ -179,8 +259,6 @@
         <p>
             Ya puedes guardar tu reconocimiento.
         </p>
-
-        <!-- IMAGEN FINAL CON NOMBRE -->
 
         <div id="certificadoFinal">
 
@@ -232,7 +310,15 @@ function generarCertificado() {
 
     if (!nombre) {
 
-        alert("Por favor, escribe tu nombre.");
+        Swal.fire({
+            title: "¡Un momentito! 🎀",
+            text: "Por favor, escribe tu nombre.",
+            confirmButtonText: "Entendido ♡",
+            buttonsStyling: false,
+            customClass: {
+                popup: "modal-certificado-coquette"
+            }
+        });
 
         return;
 
@@ -243,10 +329,15 @@ function generarCertificado() {
     if (!fondoCertificado.complete ||
         fondoCertificado.naturalWidth === 0) {
 
-        alert(
-            "No se pudo cargar el certificado. " +
-            "Revisa Img/certificado.jpg"
-        );
+        Swal.fire({
+            title: "¡Ups! ♡",
+            text: "No se pudo cargar el certificado. Revisa Img/certificado.jpg",
+            confirmButtonText: "Entendido ♡",
+            buttonsStyling: false,
+            customClass: {
+                popup: "modal-certificado-coquette"
+            }
+        });
 
         return;
 
@@ -273,7 +364,15 @@ async function descargarCertificado() {
 
     if (typeof htmlToImage === "undefined") {
 
-        alert("No se pudo cargar la biblioteca de descarga.");
+        Swal.fire({
+            title: "¡Ups! ♡",
+            text: "No se pudo cargar la biblioteca de descarga.",
+            confirmButtonText: "Entendido ♡",
+            buttonsStyling: false,
+            customClass: {
+                popup: "modal-certificado-coquette"
+            }
+        });
 
         return;
 
@@ -290,9 +389,6 @@ async function descargarCertificado() {
                 cacheBust: true
             }
         );
-        if (!imagen.startsWith("data:image/png")) {
-    throw new Error("La imagen generada no está en formato PNG.");
-}
 
         const enlace = document.createElement("a");
 
@@ -308,10 +404,15 @@ async function descargarCertificado() {
 
         console.error("Error al generar PNG:", error);
 
-        alert(
-            "No se pudo generar el certificado. " +
-            "Revisa la consola para conocer el error."
-        );
+        Swal.fire({
+            title: "¡Ups! ♡",
+            text: "No se pudo generar el certificado. Revisa la consola para conocer el error.",
+            confirmButtonText: "Entendido ♡",
+            buttonsStyling: false,
+            customClass: {
+                popup: "modal-certificado-coquette"
+            }
+        });
 
     }
 
